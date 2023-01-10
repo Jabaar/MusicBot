@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
 import com.jagrosh.jmusicbot.queue.FairQueue;
 import com.jagrosh.jmusicbot.settings.Settings;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
@@ -170,14 +171,14 @@ public class AudioHandler extends AudioEventAdapter implements AudioSendHandler
             else
                 queue.addAt(0, clone);
         }
-        
+
         if(queue.isEmpty())
         {
             if(!playFromDefault())
             {
                 manager.getBot().getNowplayingHandler().onTrackUpdate(guildId, null, this);
-                if(!manager.getBot().getConfig().getStay())
-                    manager.getBot().closeAudioConnection(guildId);
+                manager.getBot().getStayInVoiceHandler().updateStaying(guildId);
+                
                 // unpause, in the case when the player was paused and the track has been skipped.
                 // this is to prevent the player being paused next time it's being used.
                 player.setPaused(false);

@@ -22,6 +22,7 @@ import com.jagrosh.jmusicbot.audio.AloneInVoiceHandler;
 import com.jagrosh.jmusicbot.audio.AudioHandler;
 import com.jagrosh.jmusicbot.audio.NowplayingHandler;
 import com.jagrosh.jmusicbot.audio.PlayerManager;
+import com.jagrosh.jmusicbot.audio.StayInVoiceHandler;
 import com.jagrosh.jmusicbot.gui.GUI;
 import com.jagrosh.jmusicbot.playlist.PlaylistLoader;
 import com.jagrosh.jmusicbot.settings.SettingsManager;
@@ -44,6 +45,7 @@ public class Bot
     private final PlaylistLoader playlists;
     private final NowplayingHandler nowplaying;
     private final AloneInVoiceHandler aloneInVoiceHandler;
+    private final StayInVoiceHandler stayInVoiceHandler;
     
     private boolean shuttingDown = false;
     private JDA jda;
@@ -62,6 +64,8 @@ public class Bot
         this.nowplaying.init();
         this.aloneInVoiceHandler = new AloneInVoiceHandler(this);
         this.aloneInVoiceHandler.init();
+        this.stayInVoiceHandler = new StayInVoiceHandler(this);
+        this.stayInVoiceHandler.init();
     }
     
     public BotConfig getConfig()
@@ -102,6 +106,11 @@ public class Bot
     public AloneInVoiceHandler getAloneInVoiceHandler()
     {
         return aloneInVoiceHandler;
+    }
+
+    public StayInVoiceHandler getStayInVoiceHandler()
+    {
+        return stayInVoiceHandler;
     }
     
     public JDA getJDA()
